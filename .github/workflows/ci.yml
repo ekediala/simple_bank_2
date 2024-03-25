@@ -13,6 +13,25 @@ jobs:
   test:
     name: test
     runs-on: ubuntu-latest
+    services:
+      # Label used to access the service container
+      postgres:
+        # Docker Hub image
+        image: postgres:alpine
+        # Provide the password for postgres
+        env:
+          POSTGRES_PASSWORD: password
+          POSTGRES_USER: user
+          POSTGRES_DB: simple-bank
+        # Set health checks to wait until postgres has started
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          # Maps tcp port 5432 on service container to the host
+          - 5432:5432
     steps:
       - uses: actions/checkout@v3
 
@@ -21,6 +40,9 @@ jobs:
         with:
           go-version: '1.22'
         id: install-go-1-dot-22
+
+      - name: migrate db
+        run: make migrateup
 
       - name: Test
         run: make test
