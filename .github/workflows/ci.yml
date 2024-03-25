@@ -41,6 +41,9 @@ jobs:
           go-version: '1.22'
         id: install-go-1-dot-22
 
+      - name: install goose
+        run: curl -fsSL https://raw.githubusercontent.com/pressly/goose/master/install.sh |sh
+
       - name: migrate db
         run: make migrateup
 
