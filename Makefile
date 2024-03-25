@@ -27,7 +27,7 @@ dropdb:
 
 migrateup:
 	@echo "Migrating up"
-	goose postgres postgresql://user:password@localhost:5432/simple_bank up
+	cd database/schema && goose postgres postgresql://user:password@localhost:5432/simple_bank up
 	@echo "Migrate up completed"
 
 migratedown:
