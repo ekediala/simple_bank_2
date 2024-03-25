@@ -5,5 +5,5 @@ var DatabaseConfig = struct {
 	DB_SOURCE string
 }{
 	DB_DRIVER: "postgres",
-	DB_SOURCE: "postgresql://user:password@localhost:5432/simple_bank",
+	DB_SOURCE: "postgresql://user:password@localhost:5432/simple_bank?sslmode=disable",
 }
